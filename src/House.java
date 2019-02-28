@@ -21,22 +21,26 @@ public class House {
     }
 
     public void houseMeny(Scanner scanner){
+        System.out.println("");
         System.out.println("Вы перешли в здание "+ name);
         System.out.println("Для создания комнаты нажмите - 1");
         System.out.println("Для выбора комнаты из списка нажмите - 2 ");
         System.out.println("Для выхода нажмите - 0");
-        System.out.println("");
 
-            if (Integer.parseInt(scanner.nextLine()) == 0){
+
+        int houseMenyNum = Integer.parseInt(scanner.nextLine());
+
+            if (houseMenyNum == 0){
                 return;
             }
-            if(Integer.parseInt(scanner.nextLine()) == 1){
+            if(houseMenyNum == 1){
 
                 roomList.addRoomToListConfirm(scanner);
                 houseMeny(scanner);
             }
-            if (Integer.parseInt(scanner.nextLine()) == 2){
+            if (houseMenyNum == 2){
                 findRoomInList(scanner);
+                houseMeny(scanner);
             }
 
 
@@ -52,7 +56,7 @@ public class House {
                 System.out.println(room.getName());
             }
         }
-        System.out.println("Укаките название комнаты, которую вы хотите просмотреть");
+        System.out.println("Укаките название комнаты, которую вы хотите просмотреть: ");
         String nameRoom = scanner.nextLine();
 
         int notCor = 0;

@@ -15,6 +15,7 @@ public class Room {
         this.furnitureList = furnitureList;
     }
 
+
     public String getName(){
         return name;
     }
@@ -24,32 +25,40 @@ public class Room {
     }
 
     public void roomMeny(Scanner scaner){
+        System.out.println("");
         System.out.println("Вы перешли в комнату "+ name);
         System.out.println("Для просмотра информации о комнате нажмите - 1");
         System.out.println("Для добавления мебели нажмите - 2");
         System.out.println("Для добавления осветительного прибора - 3");
-        System.out.println("Для выхода  в предидущее меню нажмите - 0");
-        System.out.println("");
-        if (Integer.parseInt(scaner.nextLine()) == 1){
+        System.out.println("Для выхода  в предыдущее меню нажмите - 0");
+
+
+        int rommMenyNumb = Integer.parseInt(scaner.nextLine());
+
+        if (rommMenyNumb == 1){
             roomInformation(scaner);
         }
-        if (Integer.parseInt(scaner.nextLine()) == 2){
-
-
+        if (rommMenyNumb == 2){
             addFurnitureToRoom(scaner);
-
         }
-        if (Integer.parseInt(scaner.nextLine()) == 3){
+        if (rommMenyNumb == 3){
             addLightBulb(scaner);
             roomMeny(scaner);
+        }
+        if (rommMenyNumb == 0){
+            return;
         }
 
     }
 
     private void roomInformation(Scanner scanner){
+        System.out.println("");
         System.out.println("Информация о комнате " + name);
-        System.out.println("Площадь комнаты: " + square);
+        System.out.println("Площадь комнаты: " + square + " m^2");
         System.out.println("Список мебели:");
+        if (furnitureList.getFurnitureList().isEmpty()){
+            System.out.println("В этой комнате пока нет мебели");
+        }
         double occupaedArea = 0;
             for (Furniture furniture: furnitureList.getFurnitureList()){
                 System.out.println(furniture.getNameFur()+ " занимаемая площадь: " + furniture.maxSize + " m^2");
@@ -59,11 +68,12 @@ public class Room {
         System.out.println("Список светоисточников:");
         int lightBulbFlow = 0;
         for (LightBulb lightBulb: lightBulbList.getLightBulbList()){
-            System.out.println(lightBulb.getName() + " световой поток: " + lightBulb.getLightFlow());
+            System.out.println(lightBulb.getName()+" - " + " световой поток: " + lightBulb.getLightFlow());
             lightBulbFlow += lightBulb.getLightFlow();
         }
         System.out.println("Общий световой поток: " + lightBulbFlow);
-        System.out.println("");
+        System.out.println("Для продолжения нажмите на клавишу enter...");
+        scanner.nextLine();
         roomMeny(scanner);
     }
 
@@ -75,44 +85,54 @@ public class Room {
         System.out.println("Добавить кровать - 4");
         System.out.println("Добавить стул - 5");
         System.out.println("Выйти из данного меню - 0");
-        System.out.println("");
 
-        if (Integer.parseInt(scanner.nextLine()) == 0){
+
+        int addfurnitureNumb = Integer.parseInt(scanner.nextLine());
+
+        if (addfurnitureNumb == 0){
             roomInformation(scanner);
         }
-        if (Integer.parseInt(scanner.nextLine()) == 1){
+        if (addfurnitureNumb == 1){
             System.out.println("Вы перешли в пункт добавления дивана");
             System.out.println("Введите минимально занимаемую площадь:");
             double minSize = Double.parseDouble(scanner.nextLine());
-            System.out.println("Введите максимально занимаемую площадь:");
+            System.out.println("Введите максимально занимаемую площадь: ");
             double maxSize = Double.parseDouble(scanner.nextLine());
+            if (minSize > maxSize){
+                System.out.println("Минимальная площадь больше максимальной");
+                addFurnitureToRoom(scanner);
+            }
             furnitureList.addFurnityreConfirm(new Furniture("Диван", minSize, maxSize), square);
             addFurnitureToRoom(scanner);
         }
-        if (Integer.parseInt(scanner.nextLine()) == 2){
+        if (addfurnitureNumb == 2){
             System.out.println("Вы перешли в пункт добавления стола");
-            System.out.println("Введите  занимаемую площадь:");
+            System.out.print("Введите  занимаемую площадь: ");
             double maxSize = Double.parseDouble(scanner.nextLine());
             furnitureList.addFurnityreConfirm(new Furniture("Стол", maxSize, maxSize), square);
             addFurnitureToRoom(scanner);
         }
-        if (Integer.parseInt(scanner.nextLine()) == 3){
+        if (addfurnitureNumb == 3){
             System.out.println("Вы перешли в пункт добавления кресла");
-            System.out.println("Введите минимально занимаемую площадь:");
+            System.out.print("Введите минимально занимаемую площадь: ");
             double minSize = Double.parseDouble(scanner.nextLine());
-            System.out.println("Введите максимально занимаемую площадь:");
+            System.out.print("Введите максимально занимаемую площадь: ");
             double maxSize = Double.parseDouble(scanner.nextLine());
+            if (minSize > maxSize){
+                System.out.println("Минимальная площадь больше максимальной");
+                addFurnitureToRoom(scanner);
+            }
             furnitureList.addFurnityreConfirm(new Furniture("Кресло", minSize, maxSize), square);
             addFurnitureToRoom(scanner);
         }
-        if (Integer.parseInt(scanner.nextLine()) == 4){
+        if (addfurnitureNumb == 4){
             System.out.println("Вы перешли в пункт добавления кровати");
-            System.out.println("Введите  занимаемую площадь:");
+            System.out.print("Введите  занимаемую площадь: ");
             double maxSize = Double.parseDouble(scanner.nextLine());
             furnitureList.addFurnityreConfirm(new Furniture("Кровать", maxSize, maxSize), square);
             addFurnitureToRoom(scanner);
         }
-        if (Integer.parseInt(scanner.nextLine()) == 5){
+        if (addfurnitureNumb == 5){
             System.out.println("Вы перешли в пункт добавления стула");
             System.out.println("Введите  занимаемую площадь:");
             double maxSize = Double.parseDouble(scanner.nextLine());
@@ -121,8 +141,11 @@ public class Room {
         }
     }
 
+    private void addfurnitureNumb(Scanner scanner) {
+    }
+
     public void addLightBulb(Scanner scanner){
-        System.out.println("Введите мощность светового потока");
+        System.out.print("Введите мощность светового потока лампочки: ");
         LightBulb lightBulbNew = new LightBulb("Лампочка", Integer.parseInt(scanner.nextLine()));
         int summLightFlow = 0;
         //summLightFlow += windowCol*700;

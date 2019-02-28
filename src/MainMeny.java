@@ -12,10 +12,11 @@ public class MainMeny {
             System.out.println("Для построения здания нажмите - 1");
             System.out.println("Для выбора здания из списка нажмите - 2");
 
+            int menyNum = Integer.parseInt(mainScan.nextLine());
 
-            if (Integer.parseInt(mainScan.nextLine()) == 1){
+            if (menyNum == 1){
                 houseBuilder();
-            }if (Integer.parseInt(mainScan.nextLine()) == 2){
+            }if (menyNum == 2){
                 listBuilder();
             }else {
                 System.out.println("Введено некорректное значение");
@@ -48,6 +49,7 @@ public class MainMeny {
 
         if (houseList.getHouseList().isEmpty() ){
             System.out.println("Список зданий пуст");
+            System.out.println("");
             mainMeny();
         }else {
             for (House house : houseList.getHouseList()) {

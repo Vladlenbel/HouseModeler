@@ -19,17 +19,18 @@ public class RoomList {
     }
 
     public void addRoomToListConfirm(Scanner scanner){
-        System.out.println("Введите название комнаты:");
+         Room room;
+        System.out.print("Введите название комнаты: ");
 
         String nameRoom = scanner.nextLine();
 
         while (addRoomWithConfirm(nameRoom) == 1){
-            System.out.println("Укаките название комнаты");
+            System.out.print("Укаките название комнаты: ");
             nameRoom = scanner.nextLine();
         }
-        System.out.println("Введите площадь конаты:");
+        System.out.print("Введите площадь комнаты: ");
         double square = Double.parseDouble(scanner.nextLine());
-        System.out.println("Введите колличество окон:");
+        System.out.print("Введите колличество окон: ");
         int windowKol = Integer.parseInt(scanner.nextLine());
             if(windowKol>5){
                 while (windowKol > 5){
@@ -41,11 +42,29 @@ public class RoomList {
             for (int i = 0; i<windowKol; i++){
                 lightBulbList.addLightBulbToList(new LightBulb("Окно", 700));
             }
-            addRoomToList(new Room(nameRoom, square, lightBulbList, new FurnitureList()));
-            if(windowKol == 0){
+            if(windowKol == 0 ){
+                int summLightFlow = 0;
 
+                while (summLightFlow < 300){
+                    summLightFlow = 0;
+                    System.out.print("Введите мощность светового потока лампочки: ");
+                    LightBulb lightBulbNew = new LightBulb("Лампочка", Integer.parseInt(scanner.nextLine()));
+
+                    //summLightFlow += windowCol*700;
+                    for (LightBulb lightBulb: lightBulbList.getLightBulbList()){
+                        summLightFlow += lightBulb.getLightFlow();
+                    }
+                    if (summLightFlow + lightBulbNew.getLightFlow() > 4000){
+                        System.out.println("Дужа ярко");
+                    }else {
+                        lightBulbList.addLightBulbToList(lightBulbNew);
+                        summLightFlow += lightBulbNew.getLightFlow();
+                    }
+                }
             }
-        return;
+            addRoomToList(room = new Room(nameRoom, square, lightBulbList, new FurnitureList()));
+            room.roomMeny(scanner);
+
     }
 
     private int addRoomWithConfirm(String nameRoom){
