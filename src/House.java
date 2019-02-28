@@ -25,6 +25,7 @@ public class House {
         System.out.println("Вы перешли в здание "+ name);
         System.out.println("Для создания комнаты нажмите - 1");
         System.out.println("Для выбора комнаты из списка нажмите - 2 ");
+        System.out.println("Для просмотра инфорации о всех комнатах здания нажмите - 3 ");
         System.out.println("Для выхода нажмите - 0");
 
 
@@ -40,6 +41,12 @@ public class House {
             }
             if (houseMenyNum == 2){
                 findRoomInList(scanner);
+                houseMeny(scanner);
+            }
+            if (houseMenyNum == 3){
+                for (Room room: roomList.getRoomList()){
+                    room.roomInformation(scanner,1);
+                }
                 houseMeny(scanner);
             }
 

@@ -36,7 +36,7 @@ public class Room {
         int rommMenyNumb = Integer.parseInt(scaner.nextLine());
 
         if (rommMenyNumb == 1){
-            roomInformation(scaner);
+            roomInformation(scaner,0);
         }
         if (rommMenyNumb == 2){
             addFurnitureToRoom(scaner);
@@ -51,7 +51,7 @@ public class Room {
 
     }
 
-    private void roomInformation(Scanner scanner){
+    public void roomInformation(Scanner scanner, int where){
         System.out.println("");
         System.out.println("Информация о комнате " + name);
         System.out.println("Площадь комнаты: " + square + " m^2");
@@ -72,9 +72,11 @@ public class Room {
             lightBulbFlow += lightBulb.getLightFlow();
         }
         System.out.println("Общий световой поток: " + lightBulbFlow);
-        System.out.println("Для продолжения нажмите на клавишу enter...");
-        scanner.nextLine();
-        roomMeny(scanner);
+        if (where == 0) {
+            System.out.println("Для продолжения нажмите на клавишу enter...");
+            scanner.nextLine();
+            roomMeny(scanner);
+        }
     }
 
     private void addFurnitureToRoom(Scanner scanner){
@@ -90,7 +92,7 @@ public class Room {
         int addfurnitureNumb = Integer.parseInt(scanner.nextLine());
 
         if (addfurnitureNumb == 0){
-            roomInformation(scanner);
+            roomMeny(scanner);
         }
         if (addfurnitureNumb == 1){
             System.out.println("Вы перешли в пункт добавления дивана");
